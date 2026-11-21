@@ -1,0 +1,180 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FaqAccordion from '../../components/ui/FaqAccordion.astro';
+import { getCollection, render } from 'astro:content';
+import { SITE } from '../../data/site';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: (post as any).slug || post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+// Kelime sayısına göre tahmini okuma süresi
+const wordCount = (post.body || '').trim().split(/\s+/).filter(Boolean).length;
+const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+
+const postUrl = new URL(Astro.url.pathname, SITE.url).href;
+
+const blogPostingSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.pubDate.toISOString(),
+  dateModified: (post.data.updatedDate ?? post.data.pubDate).toISOString(),
+  inLanguage: 'tr-TR',
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': postUrl,
+  },
+  author: {
+    '@type': 'Organization',
+    name: SITE.legalName,
+    url: SITE.url,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: SITE.legalName,
+    url: SITE.url,
+  },
+  articleSection: post.data.category,
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Anasayfa', item: SITE.url },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: `${SITE.url}/blog/` },
+    { '@type': 'ListItem', position: 3, name: post.data.title, item: postUrl },
+  ],
+};
+
+const faqSchema =
+  post.data.faqs && post.data.faqs.length > 0
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: post.data.faqs.map((item) => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: item.answer,
+          },
+        })),
+      }
+    : null;
+
+const allSchemas = [
+  blogPostingSchema,
+  breadcrumbSchema,
+  ...(faqSchema ? [faqSchema] : []),
+];
+---
+
+<BaseLayout
+  title={`${post.data.title} | ${SITE.name}`}
+  description={post.data.description}
+  ogType="article"
+  ogImage={post.data.coverImage?.src}
+  publishedTime={post.data.pubDate.toISOString()}
+  modifiedTime={(post.data.updatedDate ?? post.data.pubDate).toISOString()}
+  extraSchema={allSchemas}
+>
+
+  <!-- Yazı Üst Başlık Bandı (PageHeader ile aynı kurumsal yüzey) -->
+  <section class="bg-slate-50 border-b border-slate-200 py-14 sm:py-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="max-w-3xl">
+        <div class="flex flex-wrap items-center gap-3 text-xs mb-4">
+          <a href="/blog/" class="font-medium text-slate-500 hover:text-slate-900">
+            &larr; Tüm Yazılar
+          </a>
+          <span class="text-slate-300">|</span>
+          <span class="font-semibold uppercase tracking-widest text-brand-lime">
+            {post.data.category}
+          </span>
+          <span class="text-slate-300">&bull;</span>
+          <time datetime={post.data.pubDate.toISOString()} class="text-slate-500">
+            {post.data.pubDate.toLocaleDateString('tr-TR', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })}
+          </time>
+          <span class="text-slate-300">&bull;</span>
+          <span class="text-slate-500">{readingTime} dk okuma</span>
+        </div>
+
+        <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 leading-tight">
+          {post.data.title}
+        </h1>
+        <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
+          {post.data.description}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Yazı Gövdesi ve Yan Bilgi Sütunu -->
+  <article class="max-w-6xl mx-auto px-4 sm:px-6 py-16">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      <!-- Sol: Okuma Alanı -->
+      <div class="lg:col-span-8">
+        <div class="prose-corporate">
+          <Content />
+        </div>
+
+        {post.data.faqs && post.data.faqs.length > 0 && (
+          <FaqAccordion faqs={post.data.faqs} />
+        )}
+
+        <div class="mt-12 pt-6 border-t border-slate-200 flex items-center justify-between text-sm">
+          <a href="/blog/" class="font-semibold text-slate-900 hover:text-brand-green">
+            &larr; Blog Listesine Dön
+          </a>
+          <a href="/iletisim/" class="font-semibold text-brand-green hover:text-brand-green-hover">
+            Teknik Soru Sor &rarr;
+          </a>
+        </div>
+      </div>
+
+      <!-- Sağ: Kurumsal Destek Kutusu (Hizmet detay sayfalarıyla aynı bileşen dili) -->
+      <aside class="lg:col-span-4 bg-slate-50 border border-slate-200 p-7 rounded-xs space-y-5">
+        <span class="text-xs font-semibold uppercase tracking-widest text-brand-lime">
+          Mühendislik Desteği
+        </span>
+        <h2 class="text-lg font-bold text-slate-900">
+          Santral veya Elektrik Projeniz mi Var?
+        </h2>
+        <p class="text-sm text-slate-600 leading-relaxed">
+          GES kurulumu, periyodik panel temizliği ve elektrik taahhüt işleriniz için saha keşfi ve teklif talebinde bulunabilirsiniz.
+        </p>
+        <div class="space-y-2.5 pt-2">
+          <a
+            href="/iletisim/"
+            class="block w-full text-center px-5 py-3 text-sm font-semibold text-white rounded-xs transition-colors"
+            style="background-color: #0e342c;"
+            onmouseover="this.style.backgroundColor='#154035'"
+            onmouseout="this.style.backgroundColor='#0e342c'"
+          >
+            Teklif & Keşif İste
+          </a>
+          <a
+            href="/hizmetler/"
+            class="block w-full text-center px-5 py-3 text-sm font-semibold text-slate-900 bg-white border border-slate-300 hover:border-slate-900 rounded-xs transition-colors"
+          >
+            Hizmetlerimizi İncele
+          </a>
+        </div>
+      </aside>
+    </div>
+  </article>
+</BaseLayout>

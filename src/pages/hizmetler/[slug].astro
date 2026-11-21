@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/ui/PageHeader.astro';
+import { getCollection, render } from 'astro:content';
+import { SITE } from '../../data/site';
+
+export async function getStaticPaths() {
+  const services = await getCollection('services');
+  return services.map((service) => ({
+    params: { slug: (service as any).slug || service.id },
+    props: { service },
+  }));
+}
+
+const { service } = Astro.props;
+const { Content } = await render(service);
+
+const serviceUrl = new URL(Astro.url.pathname, SITE.url).href;
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: service.data.title,
+  description: service.data.shortDescription,
+  provider: {
+    '@type': 'LocalBusiness',
+    name: SITE.legalName,
+    url: SITE.url,
+  },
+  areaServed: {
+    '@type': 'AdministrativeArea',
+    name: 'Ankara ve Türkiye Geneli',
+  },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Anasayfa', item: SITE.url },
+    { '@type': 'ListItem', position: 2, name: 'Hizmetler', item: `${SITE.url}/hizmetler/` },
+    { '@type': 'ListItem', position: 3, name: service.data.title, item: serviceUrl },
+  ],
+};
+---
+
+<BaseLayout
+  title={`${service.data.title} | ${SITE.name}`}
+  description={service.data.shortDescription}
+  ogImage={service.data.coverImage?.src}
+  extraSchema={[serviceSchema, breadcrumbSchema]}
+>
+  <PageHeader
+    eyebrow={service.data.heroBadge}
+    title={service.data.title}
+    description={service.data.shortDescription}
+  />
+
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 py-16">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      <div class="lg:col-span-8 prose-corporate">
+        <Content />
+      </div>
+
+      <aside class="lg:col-span-4 bg-slate-50 border border-slate-200 p-7 rounded-xs space-y-5">
+        <span class="text-xs font-semibold uppercase tracking-widest text-brand-lime">Hızlı Başvuru</span>
+        <h3 class="text-lg font-bold text-slate-900">Keşif ve Teklif Alın</h3>
+        <p class="text-sm text-slate-600 leading-relaxed">
+          {service.data.title} projeleriniz için teknik ekibimizle doğrudan iletişime geçebilirsiniz.
+        </p>
+        <div class="space-y-2.5 pt-2">
+          <a
+            href="/iletisim/"
+            class="block w-full text-center px-5 py-3 text-sm font-semibold text-white rounded-xs transition-colors"
+            style="background-color: #0e342c;"
+            onmouseover="this.style.backgroundColor='#154035'"
+            onmouseout="this.style.backgroundColor='#0e342c'"
+          >
+            İletişim Formu
+          </a>
+          <a
+            href={SITE.whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="block w-full text-center px-5 py-3 text-sm font-semibold text-slate-900 bg-white border border-slate-300 hover:border-slate-900 rounded-xs transition-colors"
+          >
+            WhatsApp ile Yazın
+          </a>
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>

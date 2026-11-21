@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/ui/PageHeader.astro';
+import FeatureCard from '../../components/ui/FeatureCard.astro';
+import { getCollection } from 'astro:content';
+import { SITE } from '../../data/site';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<BaseLayout
+  title={`Blog & Teknik Yazılar | ${SITE.name}`}
+  description="Güneş enerjisi santralleri, panel bakımı, verimlilik ve elektrik mühendisliği üzerine teknik yazılar."
+>
+  <PageHeader
+    eyebrow="Bilgi Merkezi"
+    title="Blog & Teknik Yazılar"
+    description="Güneş enerjisi kurulum süreçleri, santral verimliliği, panel temizliği ve elektrik altyapıları hakkında güncel içerikler."
+  />
+
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 py-16">
+    {posts.length === 0 ? (
+      <div class="border border-slate-200 bg-slate-50 p-10 rounded-xs text-center text-slate-600">
+        Henüz yayınlanmış bir yazı bulunmuyor.
+      </div>
+    ) : (
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+        {posts.map((post) => {
+          const postSlug = (post as any).slug || post.id;
+          const dateStr = post.data.pubDate.toLocaleDateString('tr-TR', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+          });
+          return (
+            <FeatureCard
+              title={post.data.title}
+              description={post.data.description}
+              href={`/blog/${postSlug}/`}
+              topSubtitle={`${post.data.category} • ${dateStr}`}
+              ctaLabel="Yazıyı Oku"
+              image={post.data.coverImage}
+              imageAlt={post.data.title}
+            />
+          );
+        })}
+      </div>
+    )}
+  </section>
+</BaseLayout>

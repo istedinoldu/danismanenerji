@@ -1,0 +1,212 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import heroVideo from '../../assets/hero/DanismanEnerji_Video.mp4';
+
+interface Props {
+  services: CollectionEntry<'services'>[];
+}
+
+const { services } = Astro.props;
+---
+
+<section class="relative text-white overflow-hidden" id="hero-slider" style="background-color: #0a2822;">
+  <!-- Slaytlar -->
+  <div class="relative min-h-[560px] sm:min-h-[640px] lg:min-h-[700px] flex items-center">
+    {services.map((service, index) => {
+      const slug = (service as any).slug || service.id;
+      const isActive = index === 0;
+      const hasVideo = slug === 'ges-kurulumu' || service.data.heroTitle === 'Güvenilir GES Kurulumları';
+
+      return (
+        <div
+          class:list={[
+            'hero-slide absolute inset-0 transition-opacity duration-700 ease-in-out flex items-center',
+            isActive ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none',
+          ]}
+          data-slide-index={index}
+        >
+          <!-- Arka Plan Görseli / Videosu & Gradyan -->
+          <div class="absolute inset-0 overflow-hidden">
+            {hasVideo ? (
+              <video
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="auto"
+                poster={service.data.coverImage?.src}
+                class="w-full h-full object-cover object-center filter brightness-[0.4] contrast-[1.05] scale-105"
+              >
+                <source src={heroVideo} type="video/mp4" />
+                {service.data.coverImage && (
+                  <Image
+                    src={service.data.coverImage}
+                    alt={service.data.title}
+                    class="w-full h-full object-cover object-center filter brightness-[0.4] contrast-[1.05]"
+                  />
+                )}
+              </video>
+            ) : service.data.coverImage ? (
+              <Image
+                src={service.data.coverImage}
+                alt={service.data.title}
+                class="w-full h-full object-cover object-center filter brightness-[0.4] contrast-[1.05] scale-105 transition-transform duration-7000 ease-out hero-img"
+                loading={index === 0 ? 'eager' : 'lazy'}
+                decoding="async"
+              />
+            ) : null}
+            <div class="absolute inset-0" style="background: linear-gradient(to right, #0e342c, rgba(14,52,44,0.80), transparent);" />
+            <div class="absolute inset-0" style="background: linear-gradient(to top, #0a2822, transparent, rgba(10,40,34,0.3));" />
+          </div>
+
+          <!-- İçerik -->
+          <div class="relative z-20 max-w-6xl mx-auto px-4 sm:px-6 w-full py-20">
+            <div class="max-w-2xl space-y-6">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-xs text-xs font-semibold uppercase tracking-widest backdrop-blur-xs" style="background-color: rgba(188,201,91,0.12); border: 1px solid rgba(188,201,91,0.35); color: #BCC95B;">
+                <span>0{index + 1}</span>
+                <span>&bull;</span>
+                <span>{service.data.heroBadge || service.data.title}</span>
+              </div>
+
+              <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.12]">
+                {service.data.heroTitle || service.data.title}
+              </h1>
+
+              <p class="text-base sm:text-lg text-slate-200 leading-relaxed max-w-xl">
+                {service.data.shortDescription}
+              </p>
+
+              <div class="pt-2 flex flex-wrap items-center gap-4">
+                <a
+                  href="/iletisim/"
+                  class="px-6 py-3.5 text-sm font-semibold rounded-xs transition-colors"
+                  style="background-color: #BCC95B; color: #0e342c;"
+                  onmouseover="this.style.backgroundColor='#a8b44f'"
+                  onmouseout="this.style.backgroundColor='#BCC95B'"
+                >
+                  Proje & Keşif Talebi
+                </a>
+                <a
+                  href={`/hizmetler/${slug}/`}
+                  class="px-6 py-3.5 text-sm font-semibold text-white rounded-xs transition-colors backdrop-blur-xs"
+                  style="background-color: rgba(14,52,44,0.85); border: 1px solid #1e5040;"
+                  onmouseover="this.style.backgroundColor='#154035'"
+                  onmouseout="this.style.backgroundColor='rgba(14,52,44,0.85)'"
+                >
+                  Hizmet Detayları &rarr;
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+
+  <!-- Alt Kontrol ve Slayt Sekmeleri -->
+  <div class="relative z-30 backdrop-blur-md" style="border-top: 1px solid rgba(30,80,64,0.8); background-color: rgba(10,40,34,0.75);">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x" style="border-color: #1e5040;">
+        {services.map((service, index) => (
+          <button
+            type="button"
+            class:list={[
+              'hero-tab text-left py-4 px-4 sm:px-6 transition-all duration-300 flex items-center justify-between group cursor-pointer border-b-2',
+              index === 0 ? 'border-brand-lime' : 'border-transparent hover:bg-white/5',
+            ]}
+            data-tab-index={index}
+          >
+            <div class="space-y-0.5">
+              <span class="text-[11px] font-mono font-semibold uppercase tracking-wider block" style="color: #BCC95B;">
+                0{index + 1}
+              </span>
+              <span class="text-sm font-bold text-white group-hover:text-brand-lime transition-colors block">
+                {service.data.title}
+              </span>
+            </div>
+            <span class="text-xs text-slate-400 group-hover:text-white transition-colors hidden lg:inline">
+              &rarr;
+            </span>
+          </button>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function setupHeroSlider() {
+    const slider = document.getElementById('hero-slider');
+    if (!slider) return;
+
+    const slides = slider.querySelectorAll<HTMLElement>('.hero-slide');
+    const tabs = slider.querySelectorAll<HTMLButtonElement>('.hero-tab');
+    if (slides.length <= 1) return;
+
+    let currentIndex = 0;
+    let timer: number | null = null;
+    const interval = 6000;
+
+    function goToSlide(index: number) {
+      slides.forEach((slide, i) => {
+        const vid = slide.querySelector('video');
+        if (i === index) {
+          slide.classList.remove('opacity-0', 'pointer-events-none', 'z-0');
+          slide.classList.add('opacity-100', 'z-10');
+          if (vid && vid.paused) {
+            vid.play().catch(() => {});
+          }
+        } else {
+          slide.classList.remove('opacity-100', 'z-10');
+          slide.classList.add('opacity-0', 'pointer-events-none', 'z-0');
+        }
+      });
+
+      tabs.forEach((tab, i) => {
+        if (i === index) {
+          tab.classList.add('bg-white/5');
+          tab.style.borderBottomColor = '#BCC95B';
+        } else {
+          tab.classList.remove('bg-white/5');
+          tab.style.borderBottomColor = 'transparent';
+        }
+      });
+
+      currentIndex = index;
+    }
+
+    function startAutoPlay() {
+      stopAutoPlay();
+      timer = window.setInterval(() => {
+        const nextIndex = (currentIndex + 1) % slides.length;
+        goToSlide(nextIndex);
+      }, interval);
+    }
+
+    function stopAutoPlay() {
+      if (timer !== null) {
+        clearInterval(timer);
+        timer = null;
+      }
+    }
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const targetIndex = Number(tab.getAttribute('data-tab-index'));
+        if (!isNaN(targetIndex)) {
+          goToSlide(targetIndex);
+          startAutoPlay();
+        }
+      });
+    });
+
+    slider.addEventListener('mouseenter', stopAutoPlay);
+    slider.addEventListener('mouseleave', startAutoPlay);
+
+    startAutoPlay();
+  }
+
+  setupHeroSlider();
+  document.addEventListener('astro:after-swap', setupHeroSlider);
+</script>

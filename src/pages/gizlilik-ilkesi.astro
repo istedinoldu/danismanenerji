@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/ui/PageHeader.astro';
+import { SITE } from '../data/site';
+---
+
+<BaseLayout
+  title={`Gizlilik İlkesi | ${SITE.name}`}
+  description={`${SITE.legalName} web sitesi gizlilik ilkesi, iletişim verilerinin işlenmesi ve güvenlik esasları.`}
+>
+  <PageHeader
+    eyebrow="Kurumsal Bilgilendirme"
+    title="Gizlilik İlkesi"
+    description="Web sitemizi ziyaret eden kullanıcıların iletişim ve erişim verilerinin gizliliği ile güvenliğine ilişkin temel esaslar."
+  />
+
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 py-16">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      <!-- Sol: Gizlilik Metni -->
+      <div class="lg:col-span-8 prose-corporate">
+        <h2>1. Genel Yaklaşım</h2>
+        <p>
+          <strong>{SITE.legalName}</strong> olarak, <code>{SITE.url}</code> alan adlı web sitemizi ziyaret eden müşterilerimizin, iş ortaklarımızın ve kullanıcılarımızın gizliliğine saygı duyuyoruz. Web sitemiz üzerinden paylaşılan iletişim bilgileri yalnızca talep edilen hizmetin sunulması ve bilgilendirme süreçleri kapsamında değerlendirilir.
+        </p>
+
+        <h2>2. Toplanan Bilgiler ve Kullanım Amaçları</h2>
+        <p>
+          İletişim formu, telefon, e-posta veya WhatsApp kanalları aracılığıyla tarafımıza iletilen bilgiler şu amaçlarla kullanılabilir:
+        </p>
+        <ul>
+          <li>GES kurulumu, panel temizliği ve elektrik tesisatı taleplerine ilişkin keşif ve teklif süreçlerinin yürütülmesi,</li>
+          <li>Teknik soruların yanıtlanması ve randevu/saha planlamalarının yapılması,</li>
+          <li>Hizmet kalitesinin artırılması ve yasal yükümlülüklerin yerine getirilmesi.</li>
+        </ul>
+
+        <h2>3. Bilgilerin Paylaşımı ve Saklanması</h2>
+        <p>
+          Paylaştığınız iletişim ve proje bilgileri, ilgili mevzuatın gerektirdiği haller veya hizmetin ifası için zorunlu teknik süreçler dışında üçüncü kişilerle ticari amaçla paylaşılmaz ve satılmaz. Veriler, yetkisiz erişimi önleyecek makul teknik ve idari tedbirlerle korunur.
+        </p>
+
+        <h2>4. Üçüncü Taraf Bağlantılar ve Harici Kanallar</h2>
+        <p>
+          Web sitemizde WhatsApp veya harita/referans bağlantıları gibi üçüncü taraf platformlara yönlendirmeler yer alabilir. Bu platformların kendi gizlilik politikaları geçerlidir ve ilgili sağlayıcıların uygulamalarından kendi koşulları sorumludur.
+        </p>
+
+        <h2>5. İletişim ve Başvuru</h2>
+        <p>
+          Gizlilik ilkesi veya paylaştığınız iletişim bilgileriyle ilgili sorularınız için doğrudan bizimle iletişime geçebilirsiniz:
+        </p>
+        <ul>
+          <li><strong>Firma:</strong> {SITE.legalName}</li>
+          <li><strong>Adres:</strong> {SITE.address.street}, {SITE.address.district} / {SITE.address.city}</li>
+          <li><strong>Telefon:</strong> <a href={`tel:${SITE.phoneRaw}`} class="underline hover:text-amber-700">{SITE.phone}</a></li>
+          <li><strong>E-posta:</strong> <a href={`mailto:${SITE.email}`} class="underline hover:text-amber-700">{SITE.email}</a></li>
+        </ul>
+      </div>
+
+      <!-- Sağ: Hızlı Erişim Kutusu -->
+      <aside class="lg:col-span-4 bg-slate-50 border border-slate-200 p-7 rounded-xs space-y-5">
+        <span class="text-xs font-semibold uppercase tracking-widest text-amber-700">İletişim</span>
+        <h2 class="text-lg font-bold text-slate-900">Sorularınız İçin Bize Ulaşın</h2>
+        <p class="text-sm text-slate-600 leading-relaxed">
+          Hizmetlerimiz veya veri gizliliği hakkında doğrudan bilgi almak için iletişim sayfamızı kullanabilirsiniz.
+        </p>
+        <div class="space-y-2.5 pt-2">
+          <a
+            href="/iletisim/"
+            class="block w-full text-center px-5 py-3 text-sm font-semibold text-white bg-slate-900 hover:bg-slate-800 rounded-xs transition-colors"
+          >
+            İletişim Sayfası
+          </a>
+          <a
+            href="/hakkimizda/"
+            class="block w-full text-center px-5 py-3 text-sm font-semibold text-slate-900 bg-white border border-slate-300 hover:border-slate-900 rounded-xs transition-colors"
+          >
+            Hakkımızda
+          </a>
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>

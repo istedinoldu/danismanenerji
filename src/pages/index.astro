@@ -1,16 +1,121 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSlider from '../components/home/HeroSlider.astro';
+import FeatureCard from '../components/ui/FeatureCard.astro';
+import { getCollection } from 'astro:content';
+import { SITE } from '../data/site';
+
+const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout>
+  <!-- Dinamik Hero Slider (Görsellerle Birlikte) -->
+  <HeroSlider services={services} />
+
+  <!-- Hizmet Kartları (Kurumsal Izgara) -->
+  <section class="py-16 sm:py-20 bg-[#f8faf9]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
+        <div>
+          <span class="inline-block px-4 py-1 text-xs font-semibold text-[#0e342c] bg-white border border-[#1e5040]/30 rounded-full shadow-2xs">
+            Öne Çıkan Hizmetler
+          </span>
+          <h2 class="text-2xl sm:text-4xl font-bold tracking-tight text-[#0e342c] mt-2">
+            Sürdürülebilir <span class="text-[#15803d]">Enerji ve Teknik</span> Çözümlerimiz
+          </h2>
+        </div>
+        <a href="/hizmetler/" class="text-sm font-semibold text-[#0e342c] hover:text-[#154035] flex items-center gap-1">
+          Tüm Hizmetler <span>&rarr;</span>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+        {services.map((service) => {
+          const serviceSlug = (service as any).slug || service.id;
+          return (
+            <FeatureCard
+              title={service.data.title}
+              description={service.data.shortDescription}
+              href={`/hizmetler/${serviceSlug}/`}
+              topSubtitle={service.data.heroBadge || 'Ankara & Türkiye Geneli'}
+              ctaLabel="Detayları İncele"
+              image={service.data.coverImage}
+              imageAlt={service.data.title}
+            />
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- Kurumsal Yaklaşım Bandı (Hakkımızda ile doğrudan bütünleşik) -->
+  <section class="text-white py-18" style="background-color: #0e342c;">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+      <div class="lg:col-span-8 space-y-4">
+        <span class="text-xs font-semibold uppercase tracking-widest text-brand-lime">
+          {SITE.legalName}
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">
+          Yatırımınızın ilk günkü verimle çalışması için sahadayız.
+        </h2>
+        <p class="text-slate-300 text-base leading-relaxed max-w-2xl">
+          Kurulum aşamasında doğru ekipman seçimi ve standartlara uygun işçilik kadar, işletme döneminde düzenli panel temizliği ve elektriksel kontroller de santral ömrünü belirler.
+        </p>
+      </div>
+      <div class="lg:col-span-4 lg:text-right">
+        <a
+          href="/hakkimizda/"
+          class="inline-block px-6 py-3.5 text-sm font-semibold rounded-xs transition-colors"
+          style="background-color: #BCC95B; color: #0e342c;"
+          onmouseover="this.style.backgroundColor='#a8b44f'"
+          onmouseout="this.style.backgroundColor='#BCC95B'"
+        >
+          Kurumsal Bilgilerimiz
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Güncel Teknik Yazılar (Blog varsa otomatik görünür) -->
+  {posts.length > 0 && (
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 pt-20 pb-20">
+      <div class="flex items-end justify-between mb-10">
+        <div>
+          <span class="inline-block px-4 py-1 text-xs font-semibold text-[#0e342c] bg-white border border-[#1e5040]/30 rounded-full shadow-2xs">
+            Bilgi Merkezi
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-[#0e342c] mt-2">
+            Güncel Teknik Yazılar
+          </h2>
+        </div>
+        <a href="/blog/" class="text-sm font-semibold text-[#0e342c] hover:text-[#154035] flex items-center gap-1">
+          Tüm Yazılar <span>&rarr;</span>
+        </a>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+        {posts.map((post) => {
+          const postSlug = (post as any).slug || post.id;
+          const dateStr = post.data.pubDate.toLocaleDateString('tr-TR', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric',
+          });
+          return (
+            <FeatureCard
+              title={post.data.title}
+              description={post.data.description}
+              href={`/blog/${postSlug}/`}
+              topSubtitle={`${post.data.category} • ${dateStr}`}
+              ctaLabel="Yazıyı Oku"
+              image={post.data.coverImage}
+              imageAlt={post.data.title}
+            />
+          );
+        })}
+      </div>
+    </section>
+  )}
+</BaseLayout>
