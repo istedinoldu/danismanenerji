@@ -3,6 +3,8 @@ title: "Güneş Paneli Temizliği Santral Üretim Verimini Nasıl Etkiler?"
 description: "Paneller üzerinde biriken toz, polen ve çevresel kalıntıların enerji üretimine etkisi ve doğru temizlik periyotları."
 pubDate: 2026-10-15
 category: "Bakım & Temizlik"
+coverImage: "../../assets/blog/DanismanEnerji-gunes-panel-temizligi-santral-verimi.jpeg"
+imageAlt: "Güneş paneli temizliği ve santral elektrik üretim verimi analizi"
 draft: false
 faqs:
   - question: "Güneş paneli temizliği elektrik üretim verimliliğini ne kadar artırır?"
