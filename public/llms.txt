@@ -1,0 +1,19 @@
+# Danışman Enerji
+
+> Ankara merkezli güneş enerjisi santrali (GES) kurulumu, profesyonel GES panel temizliği, elektrik taahhüt ve enerji mühendisliği hizmetleri.
+
+## Kurumsal Bilgiler
+- **Firma Ünvanı:** Danışman Enerji
+- **Konum:** Ankara, Türkiye
+- **Web Sitesi:** https://danismanenerji.com.tr
+- **E-posta:** info@danismanenerji.com.tr
+- **Hizmet Alanları:** Endüstriyel ve Ticari Çatı/Arazi GES Kurulumu, Robotik/Saf Su ile GES Panel Temizliği, Yüksek/Alçak Gerilim Elektrik İşleri, Enerji Mühendisliği ve Bakım-Onarım.
+
+## Ana Sayfalar
+- [Anasayfa](https://danismanenerji.com.tr/): Genel bakış, hizmet alanları ve mühendislik çözümleri.
+- [Hizmetlerimiz](https://danismanenerji.com.tr/hizmetler/): GES kurulumu, GES panel temizliği ve elektrik işleri detayları.
+- [Hakkımızda](https://danismanenerji.com.tr/hakkimizda/): Kurumsal yapı, mühendislik yaklaşımı ve kalite standartları.
+- [İletişim](https://danismanenerji.com.tr/iletisim/): Keşif, teklif ve teknik bilgi talep formu.
+
+## Blog ve Teknik Rehberler
+- [Blog](https://danismanenerji.com.tr/blog/): Güneş enerjisi verimliliği, panel temizliği periyotları ve mevzuat rehberleri.
