@@ -1,0 +1,16 @@
+# Eski WordPress sayfaları / kategori / etiket yapıları için 301 yönlendirmeleri:
+/hizmetlerimiz/                 /hizmetler/                    301
+/hizmetlerimiz                  /hizmetler/                    301
+/iletisim-bilgileri/            /iletisim/                     301
+/iletisim-bilgileri             /iletisim/                     301
+/hakkimizda-biz-kimiz/          /hakkimizda/                   301
+/hakkimizda-biz-kimiz           /hakkimizda/                   301
+
+# Eski blog / kategori / etiket / yazar yapıları:
+/category/*                     /blog/                         301
+/tag/*                          /blog/                         301
+/author/*                       /blog/                         301
+/blog-yazilari/:slug            /blog/:slug                    301
+
+# www / non-www tekilleştirme:
+https://www.danismanenerji.com.tr/*   https://danismanenerji.com.tr/:splat   301
