@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import FaqAccordion from '../../components/ui/FaqAccordion.astro';
+import { Image } from 'astro:assets';
 import { getCollection, render } from 'astro:content';
 import { SITE } from '../../data/site';
 
@@ -33,6 +34,9 @@ const blogPostingSchema = {
     '@type': 'WebPage',
     '@id': postUrl,
   },
+  ...(post.data.coverImage && {
+    image: new URL(post.data.coverImage.src, SITE.url).href,
+  }),
   author: {
     '@type': 'Organization',
     name: SITE.legalName,
@@ -128,6 +132,17 @@ const allSchemas = [
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
       <!-- Sol: Okuma Alanı -->
       <div class="lg:col-span-8">
+        {post.data.coverImage && (
+          <div class="mb-10 overflow-hidden rounded-2xl shadow-lg border border-slate-200/80 bg-slate-100 aspect-[16/9]">
+            <Image
+              src={post.data.coverImage}
+              alt={post.data.imageAlt || post.data.title}
+              class="w-full h-full object-cover"
+              loading="eager"
+            />
+          </div>
+        )}
+
         <div class="prose-corporate">
           <Content />
         </div>

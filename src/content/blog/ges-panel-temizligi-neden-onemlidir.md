@@ -3,6 +3,8 @@ title: "GES Panel Temizliği Neden Önemlidir?"
 description: "Güneş enerjisi sistemlerinde düzenli panel temizliğinin verimliliğe etkisi, doğru uygulama yöntemleri, temizlik sıklığı ve Danışman Enerji'nin saha deneyimine dayalı uzman tavsiyeleri."
 pubDate: 2026-10-20
 category: "Bakım & Temizlik"
+coverImage: "../../assets/blog/DanismanEnerji_CAtiGES_Temizlik.webp"
+imageAlt: "Çatı GES panel temizliği ve profesyonel saf su ile yıkama"
 draft: false
 faqs:
   - question: "GES panel temizliği ne kadar sürer?"

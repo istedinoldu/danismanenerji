@@ -26,6 +26,7 @@ const blog = defineCollection({
       pubDate: z.coerce.date(),
       updatedDate: z.coerce.date().optional(),
       coverImage: image().optional(),
+      imageAlt: z.string().optional(),
       category: z
         .enum(['GES Kurulumu', 'Bakım & Temizlik', 'Uzman Tavsiyesi', 'Elektrik', 'Mevzuat'])
         .default('Uzman Tavsiyesi'),

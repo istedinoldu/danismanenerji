@@ -3,6 +3,8 @@ title: "Yaz Aylarında GES Panel Temizliği Neden Daha Kritik?"
 description: "Yaz aylarında artan toz, rüzgar, kuş pislikleri ve tarımsal kirliliğe karşı düzenli GES panel temizliği; verim artışı, doğru zamanlama ve profesyonel uygulama detayları."
 pubDate: 2026-10-05
 category: "Uzman Tavsiyesi"
+coverImage: "../../assets/blog/danismanEnerji-yaz-aylarinde-ges-panel-temizligi.jpg"
+imageAlt: "Yaz aylarında güneş paneli temizliği ve saf su uygulaması"
 draft: false
 faqs:
   - question: "Yaz aylarında GES panel temizliği neden daha kritiktir?"

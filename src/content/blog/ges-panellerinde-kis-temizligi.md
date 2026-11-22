@@ -3,6 +3,8 @@ title: "GES Panellerinde Kış Temizliği Neden Önemlidir?"
 description: "Kış aylarında kar, çamur, kurum ve don etkisine karşı GES panel temizliği; verim kayıplarını azaltma, doğru uygulama yöntemleri ve Ankara özelinde bakım önerileri."
 pubDate: 2026-10-10
 category: "Uzman Tavsiyesi"
+coverImage: "../../assets/blog/DanismanEnerji-kis-temizligi.jpeg"
+imageAlt: "GES panellerinde kış temizliği ve kar sonrası bakım uygulaması"
 draft: false
 faqs:
   - question: "Kış aylarında GES panelleri neden temizlenmelidir?"

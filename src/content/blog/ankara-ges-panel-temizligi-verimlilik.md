@@ -3,6 +3,8 @@ title: "Ankara GES Panel Temizliği ile Verimliliği Zirveye Taşıyın"
 description: "Ankara'da kurulu güneş enerji santrallerinin (GES) düzenli temizlenmesi; verim kayıpları, 2024 saha verileri, uygulama adımları ve ilçe bazlı hizmet kapsamı."
 pubDate: 2026-10-08
 category: "Uzman Tavsiyesi"
+coverImage: "../../assets/blog/DanismanEnerji-ankara-ges-panel-temizligi.jpeg"
+imageAlt: "Ankara GES panel temizliği ve saha verimlilik uygulaması"
 draft: false
 faqs:
   - question: "Ankara'da GES panel temizliği yılda kaç kez yapılmalıdır?"

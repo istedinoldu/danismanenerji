@@ -111,7 +111,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
               topSubtitle={`${post.data.category} • ${dateStr}`}
               ctaLabel="Yazıyı Oku"
               image={post.data.coverImage}
-              imageAlt={post.data.title}
+              imageAlt={post.data.imageAlt || post.data.title}
             />
           );
         })}
