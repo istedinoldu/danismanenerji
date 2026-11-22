@@ -4,6 +4,13 @@ description: "Kış aylarında kar, çamur, kurum ve don etkisine karşı GES pa
 pubDate: 2026-10-10
 category: "Uzman Tavsiyesi"
 draft: false
+faqs:
+  - question: "Kış aylarında GES panelleri neden temizlenmelidir?"
+    answer: "Kışın kar birikintileri, çamurlu yağmurlar, don ve artan hava kirliliği (is/kurum) panel yüzeyinde ışık geçirgenliğini engelleyerek üretimde %10 ile %25 arasında kayba yol açar."
+  - question: "Karlı paneller nasıl temizlenmeli, sert cisimle kazınabilir mi?"
+    answer: "Kesinlikle sert cisimlerle kar kazınmamalıdır. Bu işlem panel camındaki yansıma önleyici kaplamayı çizer ve mikro çatlaklara neden olur. Özel yumuşak aparatlar ve profesyonel saf su sistemleri ile don riski olmayan saatlerde temizlik yapılmalıdır."
+  - question: "Kış temizliğinde sıcak su kullanılabilir mi?"
+    answer: "Hayır. Soğuk panel yüzeyine sıcak su uygulanması termal şoka ve camın patlamasına/çatlamasına neden olur. Uygulamalar ortam sıcaklığına uygun saf su ve kontrollü düşük basınçla gerçekleştirilmelidir."
 ---
 
 Kış aylarında güneş enerjisi sistemlerinin performansı doğal olarak düşüş gösterebilir. Ancak bu düşüşün tek nedeni güneşlenme süresinin azalması değildir. GES panellerinde kış temizliği, kar, çamur, is, yaprak ve yoğun nem nedeniyle oluşan kirlenmenin giderilmesi için kritik bir bakım sürecidir.

@@ -4,6 +4,13 @@ description: "Güneş enerjisi sistemlerinde düzenli panel temizliğinin veriml
 pubDate: 2026-10-20
 category: "Bakım & Temizlik"
 draft: false
+faqs:
+  - question: "GES panel temizliği ne kadar sürer?"
+    answer: "1 MW'lık bir alanda ortalama temizlik süresi 1–2 gündür. Alan büyüklüğü ve kirlilik düzeyine göre bu süre değişebilir."
+  - question: "Yağmur temizliğe gerek bırakmaz mı?"
+    answer: "Hayır. Yağmur suyu, çamur ve mineraller taşıdığından panel yüzeyinde leke ve tortu bırakabilir. Saf su ile yapılan profesyonel temizlik ile karıştırılmamalıdır."
+  - question: "Kimyasal kullanılmalı mı?"
+    answer: "Hayır. Panel camındaki anti-reflektif kaplamayı korumak için kimyasal kullanılmaması önerilir. Saf/deiyonize su yeterlidir."
 ---
 
 Güneş Enerji Sistemleri (GES), sürdürülebilir ve ekonomik enerji üretiminin en güçlü kaynaklarından biridir. Ancak bu sistemlerin verimli çalışabilmesi için düzenli bakım ve panel temizliği büyük önem taşır. Zamanla panellerin yüzeyinde oluşan toz, kir, polen ve kuş pisliği gibi kalıntılar, güneş ışığının emilimini azaltarak enerji üretimini **%20–30 oranında** düşürebilir.
@@ -56,17 +63,6 @@ Gerçek saha verilerine göre:
 | **Türkiye Geneli Hizmet** | Ankara merkezli, tüm illerde mobil hizmet |
 | **Raporlama** | Temizlik öncesi ve sonrası verim raporu |
 | **Teknik Destek** | Acil temizlik planlaması ve danışmanlık |
-
-## Sık Sorulan Sorular
-
-**GES panel temizliği ne kadar sürer?**
-1 MW'lık bir alanda ortalama temizlik süresi 1–2 gündür. Alan büyüklüğü ve kirlilik düzeyine göre bu süre değişebilir.
-
-**Yağmur temizliğe gerek bırakmaz mı?**
-Hayır. Yağmur suyu, çamur ve mineraller taşıdığından panel yüzeyinde leke ve tortu bırakabilir. Saf su ile yapılan profesyonel temizlik ile karıştırılmamalıdır.
-
-**Kimyasal kullanılmalı mı?**
-Hayır. Panel camındaki anti-reflektif kaplamayı korumak için kimyasal kullanılmaması önerilir. Saf/deiyonize su yeterlidir.
 
 ---
 

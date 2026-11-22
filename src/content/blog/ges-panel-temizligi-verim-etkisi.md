@@ -4,6 +4,13 @@ description: "Paneller üzerinde biriken toz, polen ve çevresel kalıntıların
 pubDate: 2026-10-15
 category: "Bakım & Temizlik"
 draft: false
+faqs:
+  - question: "Güneş paneli temizliği elektrik üretim verimliliğini ne kadar artırır?"
+    answer: "Bölgesel tozlanma, polen ve endüstriyel kirliliğe bağlı olarak düzenli temizlik santral elektrik üretiminde %8 ile %25 arasında doğrudan verim artışı sağlar."
+  - question: "Hot-spot (sıcak nokta) riski nedir ve temizlikle nasıl önlenir?"
+    answer: "Kuş pisliği, yaprak veya yoğun kir tabakası belirli güneş hücrelerini gölgeleyerek bölgesel aşırı ısınmaya (hot-spot) yol açar. Periyodik saf su temizliği bu gölgelenmeleri gidererek kalıcı hücre hasarını ve yangın riskini önler."
+  - question: "Santral panelleri ne sıklıkla temizlenmelidir?"
+    answer: "Santralinizin bulunduğu bölgenin iklim şartlarına, tarımsal veya sanayi faaliyetlerine göre yılda en az 2 kez periyodik temizlik yapılması yatırım geri dönüş süresini optimize eder."
 ---
 
 Güneş enerjisi santrallerinde (GES) kurulum tamamlandıktan sonra beklenen yıllık üretim değerlerine ulaşabilmek için panellerin ışık geçirgenliğinin korunması gerekir. Zamanla yüzeyde biriken ince toz tabakası dahi güneş ışınlarının hücrelere ulaşmasını engelleyerek üretim kaybına neden olur.
