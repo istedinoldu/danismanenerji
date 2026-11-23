@@ -112,7 +112,7 @@ const currentPath = Astro.url.pathname;
       <div class="max-w-6xl mx-auto px-4 sm:px-6">
         <div class="flex items-center justify-between h-20">
           <!-- Logo -->
-          <a href="/" class="flex items-center group py-2">
+          <a href="/" class="flex items-center group py-2 shrink-0">
             <img
               src="/images/brand/logo.webp"
               alt={SITE.name}
@@ -122,8 +122,8 @@ const currentPath = Astro.url.pathname;
             />
           </a>
 
-          <!-- Navigasyon Menüsü -->
-          <nav class="hidden md:flex items-center gap-8">
+          <!-- Masaüstü Navigasyon Menüsü -->
+          <nav class="hidden md:flex items-center gap-8" aria-label="Ana Menü">
             {SITE.nav.map((link) => {
               const isActive = currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href));
               return (
@@ -140,7 +140,7 @@ const currentPath = Astro.url.pathname;
             })}
           </nav>
 
-          <!-- Hızlı İletişim Butonları -->
+          <!-- Masaüstü Hızlı İletişim Butonları -->
           <div class="hidden sm:flex items-center gap-3">
             <a
               href={SITE.whatsapp}
@@ -152,7 +152,84 @@ const currentPath = Astro.url.pathname;
             </a>
             <a
               href="/iletisim/"
-              class="px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-white bg-brand-green hover:bg-brand-green-hover rounded-xs transition-colors"
+              class="px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-white bg-[#0e342c] hover:bg-[#154035] rounded-xs transition-colors"
+            >
+              Teklif Alın
+            </a>
+          </div>
+
+          <!-- Mobil Menü Butonu (md altında görünür) -->
+          <button
+            type="button"
+            id="mobile-menu-toggle"
+            aria-controls="mobile-menu"
+            aria-expanded="false"
+            aria-label="Menüyü Aç veya Kapat"
+            class="md:hidden inline-flex items-center justify-center p-2.5 rounded-xs text-[#0e342c] hover:bg-slate-100 focus:outline-none transition-colors cursor-pointer"
+          >
+            <!-- Hamburger İkonu -->
+            <svg
+              id="menu-icon-open"
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <!-- Kapatma (X) İkonu -->
+            <svg
+              id="menu-icon-close"
+              class="w-6 h-6 hidden"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobil Açılır Menü Paneli -->
+      <div
+        id="mobile-menu"
+        class="md:hidden hidden border-t border-slate-200 bg-white shadow-lg"
+      >
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-5 space-y-4">
+          <nav class="flex flex-col space-y-1" aria-label="Mobil Menü">
+            {SITE.nav.map((link) => {
+              const isActive = currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href));
+              return (
+                <a
+                  href={link.href}
+                  class:list={[
+                    'px-3 py-2.5 rounded-xs text-base font-semibold transition-colors',
+                    isActive
+                      ? 'bg-[#0e342c] text-[#a3e635]'
+                      : 'text-slate-700 hover:bg-slate-50 hover:text-[#0e342c]',
+                  ]}
+                >
+                  {link.label}
+                </a>
+              );
+            })}
+          </nav>
+
+          <div class="pt-3 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <a
+              href={SITE.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-full text-center px-4 py-3 text-xs font-semibold uppercase tracking-wider text-slate-800 bg-slate-100 hover:bg-slate-200 rounded-xs transition-colors"
+            >
+              WhatsApp
+            </a>
+            <a
+              href="/iletisim/"
+              class="w-full text-center px-5 py-3 text-xs font-semibold uppercase tracking-wider text-white bg-[#0e342c] hover:bg-[#154035] rounded-xs transition-colors"
             >
               Teklif Alın
             </a>
@@ -160,6 +237,37 @@ const currentPath = Astro.url.pathname;
         </div>
       </div>
     </header>
+
+    <script>
+      const menuToggle = document.getElementById('mobile-menu-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const iconOpen = document.getElementById('menu-icon-open');
+      const iconClose = document.getElementById('menu-icon-close');
+
+      function setMenuState(isOpen: boolean) {
+        if (!menuToggle || !mobileMenu || !iconOpen || !iconClose) return;
+        mobileMenu.classList.toggle('hidden', !isOpen);
+        iconOpen.classList.toggle('hidden', isOpen);
+        iconClose.classList.toggle('hidden', !isOpen);
+        menuToggle.setAttribute('aria-expanded', String(isOpen));
+      }
+
+      menuToggle?.addEventListener('click', () => {
+        const isCurrentlyOpen = menuToggle.getAttribute('aria-expanded') === 'true';
+        setMenuState(!isCurrentlyOpen);
+      });
+
+      mobileMenu?.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => setMenuState(false));
+      });
+
+      window.addEventListener('resize', () => {
+        if (window.innerWidth >= 768) {
+          setMenuState(false);
+        }
+      });
+    </script>
+
 
     <!-- Ana İçerik -->
     <main class="flex-1">
